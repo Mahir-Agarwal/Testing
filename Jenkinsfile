@@ -1,11 +1,16 @@
 pipeline{
     agent any 
+    
+    enviornment{
+        VERSION_NAME = 1.32.3
+    }
     stages{
 
         stage ("compile"){
             steps{
                 
             sh  ' javac Test.java '
+            sh ' echo "${VERISON_NAME}"'
             }
         }
         stage ("run"){
