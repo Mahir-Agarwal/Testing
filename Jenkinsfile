@@ -1,8 +1,8 @@
 pipeline{
     agent any 
-    
-    enviornment{
-        VERSION_NAME = 1.32.3
+
+    environment{
+        VERSION_NAME = "1.32.3"
     }
     stages{
 
