@@ -1,38 +1,40 @@
-pipeline{
-    agent any 
+pipeline {
+agent any
 
-    environment{
-        VERSION_NAME = "1.32.3"
-    }
-    stages{
+environment {
+    VERSION_NAME = "1.32.3"   // Ye ek environment variable hai
+}
 
-        stage ("compile"){
-            steps{
-                
-            sh  ' javac Test.java '
-            sh ' echo "${VERISON_NAME}"'
-            }
-        }
-        stage ("run"){
-            steps{
+stages {
 
-            sh  " java Test.java  "
-            }
+    stage ("compile") {
+        steps {
+            sh 'javac Test.java'             // Java file compile karega
+            sh 'echo "${VERSION_NAME}"'      // Version print karega
         }
     }
 
-    post{ // after stages run hone ke baad ye chalega post  
-
-        success{ 
-               sh 'echo " Build Success"'
-        }
-
-        failure{
-            sh 'echo "Build Failed"'
-        }
-
-        always{
-            sh 'echo "This vro always runs " '
+    stage ("run") {
+        steps {
+            sh 'java Test'                   // Compiled class run karega
         }
     }
+}
+
+post {   // Ye stages ke baad run hota hai
+
+    success { 
+        sh 'echo "Build Success"'            // Agar sab sahi hua
+    }
+
+    failure {
+        sh 'echo "Build Failed"'             // Agar koi stage fail hua
+    }
+
+    always {
+        sh 'echo "This always runs"'         // Har case me chalega
+    }
+}
+
+
 }
